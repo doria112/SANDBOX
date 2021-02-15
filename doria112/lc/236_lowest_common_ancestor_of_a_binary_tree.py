@@ -22,3 +22,36 @@ class Solution:
                 return 0, None
         found, lca = search(root, p, q)
         return lca
+
+    
+#### Version 2 ####
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def __init__(self):
+        self.node = None
+        
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        def search(root: 'TreeNode') -> int:
+            if self.node:
+                return 0
+            if not root:
+                return 0
+            mid, left, right = 0, 0, 0
+            if (root.val == p.val) or (root.val == q.val):
+                mid = 1
+            left = search(root.left)
+            right = search(root.right)
+            if mid + left + right >= 2:
+                self.node = root
+                return 1
+            else:
+                return (mid + left + right > 0)
+
+        found = search(root)
+        return self.node
