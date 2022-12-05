@@ -7,13 +7,13 @@ class Solution:
         # when ingredient[i] is empty, added the created recipe to return value
         
         created = []
-        available = deque(x for x in supplies)
+        available = deque(supplies)
         i_to_rs = defaultdict(list)
         r_to_is = defaultdict(list)
-        for i in range(len(recipes)):
-            r_to_is[recipes[i]] = ingredients[i]
-            for ingredient in ingredients[i]:
-                i_to_rs[ingredient].append(recipes[i])
+        for r, ingredients in zip(recipes, ingredients):
+            r_to_is[r] = ingredients
+            for ingredient in ingredients:
+                i_to_rs[ingredient].append(r)
 
         while available:
             curr = available.popleft()
